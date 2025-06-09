@@ -81,6 +81,9 @@ const { DEBUG } = process.env;
     });
   }
 
+	let full_text = "";
+	let offset = 1;
+
   function getSpineNodesCfi(spineFilePath, spineNodeCfi) {
     return new Promise((resolve, reject) => {
       fs.readFile(spineFilePath, 'utf8', (err, data) => {
@@ -99,8 +102,13 @@ const { DEBUG } = process.env;
 
           resolve(textNodes.map((node) => {
             const cfi = cfiGenerator.generateCharacterOffsetCFIComponent(node, null, null, null);
+						old_offset = offset;
+						offset += node.toString().length;
+						full_text += node.toString();
             return {
               node: node.toString(),
+							offset: old_offset,
+							length: node.toString().length,
               cfi: `${spineNodeCfi}!${cfi}`
             };
           }));
@@ -148,7 +156,7 @@ const { DEBUG } = process.env;
             /* eslint-enable */
           })
         )
-      ).then(() => spinesInfo)
+      ).then(() => {return {full_text: full_text, spines: spinesInfo}})
     );
 
   module.exports = EpubCfiGenerator;

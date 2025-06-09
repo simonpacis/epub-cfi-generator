@@ -13,7 +13,6 @@ const EpubCfiGenerator = require('./epub-cfi-generator');
 
   new EpubCfiGenerator().parse(inputFile).then((spinesInfo) => {
     const serialized = JSON.stringify(spinesInfo, null, 4);
-    console.log(`result data length: ${serialized.length}`);
-    fs.writeFileSync(outputFile, serialized);
+		console.log(serialized);
   }).catch((err) => console.error(`${err}\x07`));
 })();
