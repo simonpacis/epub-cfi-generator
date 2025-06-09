@@ -28,6 +28,5 @@ sudo ln -s "$(pwd)/usage.js" /usr/local/bin/epub-cfi-generator
 
 And you're all set. You don't need to use it, kohico will automatically employ it.
 
-License
-----
+## License
 MIT
